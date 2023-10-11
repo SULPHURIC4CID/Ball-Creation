@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Stats from "./Pages/Stats";
+import CreateBall from "./Pages/CreateBall";
+import Home from "./Pages/Home";
+import { Route, Routes } from "react-router-dom";
+import Header from "./Components/Header";
+import { createContext } from "react";
+import { useState } from "react";
+import Sort from "./Pages/Sort";
 
-function App() {
+export const BallContext = createContext(null);
+
+const App = () => {
+  const [ballData, setBallData] = useState([]);
+
+  let value = { ballData, setBallData };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Header />
+      <BallContext.Provider value={value}>
+        <Routes>
+          <Route path="/" element={<Home />}></Route>
+          <Route path="/CreateBalls" element={<CreateBall />}></Route>
+          <Route path="/Stats" element={<Stats />}></Route>
+          <Route path="/Sort" element={<Sort />}></Route>
+        </Routes>
+      </BallContext.Provider>
     </div>
   );
-}
+};
 
 export default App;
